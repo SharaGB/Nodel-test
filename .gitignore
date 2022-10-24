@@ -1,0 +1,6 @@
+venv
+pivot_table
+credentials.json
+token.json
+__pycache__
+geckodriver.log
