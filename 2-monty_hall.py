@@ -12,11 +12,9 @@ def monty_hall(attemps):
         # Player choice a random door
         player_choice = random.choice(['Door 1', 'Door 2', 'Door 3'])
         # Monty Hall open a door with a goat
-        monty_hall_choice = list(
-            {'Door 1', 'Door 2', 'Door 3'} - {player_choice, prize})[0]
+        monty_hall_choice = list({'Door 1', 'Door 2', 'Door 3'} - {player_choice, prize})[0]
         # Other door different of player choice and Monty Hall choice
-        other_door = list({'Door 1', 'Door 2', 'Door 3'} -
-                          {player_choice, monty_hall_choice})[0]
+        other_door = list({'Door 1', 'Door 2', 'Door 3'} - {player_choice, monty_hall_choice})[0]
         # Case 1:  Player change his choice to the other door and win
         choice_changed.append(other_door == prize)
         # Case 2:  Player stay with his choice and win
@@ -40,19 +38,15 @@ def one_more_door(attemps):
         # Player choice a random door
         player_choice = random.choice(['Door 1', 'Door 2', 'Door 3', 'Door 4'])
         # Monty Hall open a random door
-        monty_hall_choice = random.choice(
-            list({'Door 1', 'Door 2', 'Door 3', 'Door 4'} - {player_choice}))
+        monty_hall_choice = random.choice(list({'Door 1', 'Door 2', 'Door 3', 'Door 4'} - {player_choice}))
 
         if monty_hall_choice != prize:
             # Other doors different of player choice and Monty Hall choice
-            other_door_1 = list(
-                {'Door 1', 'Door 2', 'Door 3', 'Door 4'} - {player_choice, monty_hall_choice})[0]
-            other_door_2 = list(
-                {'Door 1', 'Door 2', 'Door 3', 'Door 4'} - {player_choice, monty_hall_choice})[1]
+            other_door_1 = list({'Door 1', 'Door 2', 'Door 3', 'Door 4'} - {player_choice, monty_hall_choice})[0]
+            other_door_2 = list({'Door 1', 'Door 2', 'Door 3', 'Door 4'} - {player_choice, monty_hall_choice})[1]
 
             # Case 1:  Player change his choice to the other doors and win
-            choice_changed.append(
-                other_door_1 == prize or other_door_2 == prize)
+            choice_changed.append(other_door_1 == prize or other_door_2 == prize)
             # Case 2:  Player stay with his choice and win
             choice_stay.append(player_choice == prize)
 
