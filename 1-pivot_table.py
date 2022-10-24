@@ -108,7 +108,7 @@ def value_bool(rows, cols):
     return values
 
 
-def calculate_country_values(sheet_id, all_data, base_columns, country_list):
+def countries_values(sheet_id, all_data, base_columns, country_list):
     """ Calculate the values of the countries """
     for value in all_data:
         for i in range(1, len(base_columns)):
@@ -121,7 +121,7 @@ def calculate_country_values(sheet_id, all_data, base_columns, country_list):
                         update_values(sheet_id, "'Pivot Table'!" + index, "USER_ENTERED", [['True']])
 
 
-def calculate_themes_values(sheet_id, all_data, base_columns, themes_list, country_list):
+def themes_values(sheet_id, all_data, base_columns, themes_list, country_list):
     """ Calculate the values of the themes """
     for value in all_data:
         for i in range(1, len(base_columns)):
@@ -177,43 +177,38 @@ if __name__ == '__main__':
     countries = get_values(SPREADSHEETID, "C2:C").get('values', [])
     themes = get_values(SPREADSHEETID, "D2:D").get('values', [])
 
-    # get unique values for countries, themes and authors
-    unique_base_columns = []
+    base_values = []
     for x in base:
-        if x not in unique_base_columns:
-            unique_base_columns.append(x)
+        if x not in base_values:
+            base_values.append(x)
 
-    unique_country_list = []
+    country_values = []
     country_columns = []
     for x in countries:
-        if x not in unique_country_list:
-            unique_country_list.append(x)
-    country_columns.append(sum(unique_country_list, []))
-    country_end_letter = convert_number(len(unique_country_list) + 2)
+        if x not in country_values:
+            country_values.append(x)
+    country_columns.append(sum(country_values, []))
+    country_end_letter = convert_number(len(country_values) + 2)
 
-    unique_themes_list = []
+    theme_values = []
     theme_columns = []
     for x in themes:
-        if x not in unique_themes_list:
-            unique_themes_list.append(x)
-    theme_columns.append(sum(unique_themes_list, []))
-    theme_start_letter = convert_number(len(unique_country_list) + 3)
-    theme_end_letter = convert_number(len(unique_country_list) + 2 + len(unique_themes_list))
+        if x not in theme_values:
+            theme_values.append(x)
+    theme_columns.append(sum(theme_values, []))
+    theme_start_letter = convert_number(len(country_values) + 3)
+    theme_end_letter = convert_number(len(country_values) + 2 + len(theme_values))
+    boolean = value_bool(len(base_values), len(country_values) + len(theme_values))
 
-    # fills with false
-    false_list = value_bool(len(unique_base_columns), len(
-        unique_country_list) + len(unique_themes_list))
-
-    update_values(SPREADSHEETID, "'Pivot Table'!C1", "USER_ENTERED", [['Countries']])
-    update_values(SPREADSHEETID, "'Pivot Table'!" + theme_start_letter + "1", "USER_ENTERED", [['Themes']])
-    update_values(SPREADSHEETID, "'Pivot Table'!A2:B", "USER_ENTERED", unique_base_columns)
+    update_values(SPREADSHEETID, "'Pivot Table'!A2:B", "USER_ENTERED", base_values)
+    update_values(SPREADSHEETID, "'Pivot Table'!C1", "USER_ENTERED", [['Country']])
     update_values(SPREADSHEETID, "'Pivot Table'!C2:" + country_end_letter + "2", "USER_ENTERED", country_columns)
+    update_values(SPREADSHEETID, "'Pivot Table'!" + theme_start_letter + "1", "USER_ENTERED", [['Theme']])
     update_values(SPREADSHEETID, "'Pivot Table'!" + theme_start_letter + "2:2", "USER_ENTERED", theme_columns)
-    update_values(SPREADSHEETID, "'Pivot Table'!C3:"+theme_end_letter + str(len(unique_base_columns)+1), "USER_ENTERED", false_list)
+    update_values(SPREADSHEETID, "'Pivot Table'!C3:"+theme_end_letter + str(len(base_values)+1), "USER_ENTERED", boolean)
 
-    pivot_table(SPREADSHEETID, PIVOT, 0, 1, 2, len(unique_country_list)+2)
-    pivot_table(SPREADSHEETID, PIVOT, 0, 1, len(unique_country_list) + 2, len(unique_themes_list) + len(unique_country_list)+2)
+    pivot_table(SPREADSHEETID, PIVOT, 0, 1, 2, len(country_values)+2)
+    pivot_table(SPREADSHEETID, PIVOT, 0, 1, len(country_values) + 2, len(theme_values) + len(country_values)+2)
 
-    # calculate where to put true or false depending on the data
-    calculate_country_values(SPREADSHEETID, all_values, unique_base_columns, unique_country_list)
-    calculate_themes_values(SPREADSHEETID, all_values, unique_base_columns, unique_themes_list, unique_country_list)
+    countries_values(SPREADSHEETID, all_values, base_values, country_values)
+    themes_values(SPREADSHEETID, all_values, base_values, theme_values, country_values)
