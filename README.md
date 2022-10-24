@@ -25,14 +25,6 @@ If you want to change something, add or delete data, you must delete the ***Pivo
 
 ![WhatsApp Image 2022-10-23 at 7 02 45 PM](https://user-images.githubusercontent.com/90220978/197424872-44def626-5a54-45cf-affa-d8f0793d5243.jpeg)
 
-<p style="background: #e5d3f2; color: #030303; font-weight: lighter; font-style: italic; padding: 10px; border: 2px solid #e6c5fc; border-radius: 8px;">In this contest, the contestant chooses one door among three, and his prize consists of what lies behind it.
-consists of what lies behind it. One of them hides a car, and behind the other two is a goat.
-the other two there is a goat. However, before opening it, the presenter, who knows where the prize is, opens the door,
-who knows where the prize is, opens one of the other two doors and shows that behind it is a goat.
-that behind it is a goat. Now the contestant has one last chance to change the
-the contestant has one last chance to change the door chosen Should the contestant keep his original choice or choose the other door?
-Should the contestant keep his original choice or choose the other door? Does it make a difference?</p>
-
 The simplest solution to the Monty Hall problem is intuitive. The probability of choosing the door with the vehicle as the prize is 1 out of 3 (⅓). Meanwhile, the chance of losing is ⅔.
 <br>
 That is, if he keeps his initial choice he maintains ⅓ chance of success. On the other hand, if he changes his choice the probability of winning the vehicle increases to ⅔.
