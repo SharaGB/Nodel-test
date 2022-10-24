@@ -57,7 +57,7 @@ ________________________________________________________________________________
     Chances of winning if Monty Hall open the door with the car 25.00%
 ```
 
-<code>Challenge 2:</code>: Mouse Exercises with Selenium.
+<code>Challenge 3:</code>: Mouse Exercises with Selenium.
 
 The challenge in this challenge is to use SELENIUM to create a script that will allow you to
 script that allows to advance in the different levels of the page interacting with the elements and following the
