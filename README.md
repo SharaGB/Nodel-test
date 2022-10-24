@@ -69,6 +69,6 @@ python 3-selenium_test.py
 ```
 A new window will open in Chrome and you will be able to see how, without the help of the mouse, each challenge is completed. 🎉
 
-## Authors 🖋️
+## Author 🖋️
 
 * [__Shara García__](https://www.linkedin.com/in/sharagb/)
