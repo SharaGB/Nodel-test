@@ -333,4 +333,5 @@ _continue = driver.find_element(by=By.XPATH, value='/html/body/form/input[3]')
 ActionChains(driver).move_to_element(_continue).click().perform()
 
 # Close the browser
+time.sleep(2)
 driver.quit()
