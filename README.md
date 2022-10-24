@@ -56,7 +56,6 @@ ________________________________________________________________________________
     Chances of winning if you stay with your choice 24.94%
     Chances of winning if Monty Hall open the door with the car 25.00%
 ```
-![monty_hall (1)](https://user-images.githubusercontent.com/90220978/197424644-93f5f2d2-7339-4db0-a772-69d297217a63.jpg)
 
 <code>Challenge 2:</code>: Mouse Exercises with Selenium.
 
