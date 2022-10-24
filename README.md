@@ -7,7 +7,7 @@ This repository contains 3 challenges for the Nodel test
 Use [git](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) to clone this repository in your local machine
 
 ```bash
-git clone https://github.com/SharaGB/Nodel-test.gitx
+git clone https://github.com/SharaGB/Nodel-test.git
 ```
 
 ### Usage 👾
