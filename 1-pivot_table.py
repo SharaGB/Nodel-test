@@ -9,8 +9,7 @@ from googleapiclient.errors import HttpError
 
 
 # Permission scopes required by the API.
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets',
-          'https://www.googleapis.com/auth/drive']
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
 
 
 def main():
@@ -49,12 +48,12 @@ def create(spreadsheet_id):
                 }
             }]
         }
-        spreadsheet = service.spreadsheets().batchUpdate(
-            spreadsheetId=spreadsheet_id, body=body).execute()
-        source_sheet_id = spreadsheet.get('replies')[0] .get(
-            'addSheet').get('properties').get('sheetId')
+
+        spreadsheet = service.spreadsheets().batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
+        source_sheet_id = spreadsheet.get('replies')[0] .get('addSheet').get('properties').get('sheetId')
         print(f"Spreadsheet ID: {(spreadsheet.get('spreadsheetId'))}")
         return source_sheet_id
+
     except HttpError as error:
         print(f"An error occurred: {error}")
         return error
@@ -66,8 +65,7 @@ def get_values(spreadsheet_id, range_name):
 
     try:
         service = build('sheets', 'v4', credentials=creds)
-        result = service.spreadsheets().values().get(
-            spreadsheetId=spreadsheet_id, range=range_name).execute()
+        result = service.spreadsheets().values().get(spreadsheetId=spreadsheet_id, range=range_name).execute()
         values = result.get('values', [])
         print(f"{len(values)} rows retrieved")
         return result
@@ -113,32 +111,30 @@ def value_bool(rows, cols):
     return values
 
 
-def countries_values(sheet_id, all_data, base_columns, country_list):
+def countries_values(sheet_id, data, base, countries):
     """ Calculate the values of the countries """
-    for value in all_data:
-        for i in range(1, len(base_columns)):
-            if value[0] == base_columns[i][0]:
-                for j in range(0, len(country_list)):
-                    if value[2] == country_list[j][0]:
+    for value in data:
+        for i in range(1, len(base)):
+            if value[0] == base[i][0]:
+                for j in range(0, len(countries)):
+                    if value[2] == countries[j][0]:
                         row = str(i+2)
                         col = convert_number(j + 3)
                         index = col+row
-                        update_values(sheet_id, "'Pivot Table'!" +
-                                      index, "USER_ENTERED", [['True']])
+                        update_values(sheet_id, "'Pivot Table'!" + index, "USER_ENTERED", [['True']])
 
 
-def themes_values(sheet_id, all_data, base_columns, themes_list, country_list):
+def themes_values(sheet_id, data, base, themes, countries):
     """ Calculate the values of the themes """
-    for value in all_data:
-        for i in range(1, len(base_columns)):
-            if value[0] == base_columns[i][0]:
-                for j in range(0, len(themes_list)):
-                    if value[3] == themes_list[j][0]:
+    for value in data:
+        for i in range(1, len(base)):
+            if value[0] == base[i][0]:
+                for j in range(0, len(themes)):
+                    if value[3] == themes[j][0]:
                         row = str(i+2)
-                        col = convert_number(j + 3 + len(country_list))
-                        index = col+row
-                        update_values(sheet_id, "'Pivot Table'!" +
-                                      index, "USER_ENTERED", [['True']])
+                        col = convert_number(j + 3 + len(countries))
+                        index = col + row
+                        update_values(sheet_id, "'Pivot Table'!" + index, "USER_ENTERED", [['True']])
 
 
 def pivot_table(spreadsheet_id, sheetId, startRowIndex, endRowIndex, startColumnIndex, endColumnIndex):
@@ -164,8 +160,7 @@ def pivot_table(spreadsheet_id, sheetId, startRowIndex, endRowIndex, startColumn
             ]
         }
 
-        response = service.spreadsheets().batchUpdate(
-            spreadsheetId=spreadsheet_id, body=body_requests).execute()
+        response = service.spreadsheets().batchUpdate(spreadsheetId=spreadsheet_id, body=body_requests).execute()
         return response
 
     except HttpError as error:
@@ -206,28 +201,18 @@ if __name__ == '__main__':
             theme_values.append(x)
     theme_columns.append(sum(theme_values, []))
     theme_start_letter = convert_number(len(country_values) + 3)
-    theme_end_letter = convert_number(
-        len(country_values) + 2 + len(theme_values))
-    boolean = value_bool(len(base_values), len(
-        country_values) + len(theme_values))
+    theme_end_letter = convert_number(len(country_values) + 2 + len(theme_values))
+    boolean = value_bool(len(base_values), len(country_values) + len(theme_values))
 
-    update_values(SPREADSHEETID, "'Pivot Table'!A2:B",
-                  "USER_ENTERED", base_values)
-    update_values(SPREADSHEETID, "'Pivot Table'!C1",
-                  "USER_ENTERED", [['Country']])
-    update_values(SPREADSHEETID, "'Pivot Table'!C2:" +
-                  country_end_letter + "2", "USER_ENTERED", country_columns)
-    update_values(SPREADSHEETID, "'Pivot Table'!" +
-                  theme_start_letter + "1", "USER_ENTERED", [['Theme']])
-    update_values(SPREADSHEETID, "'Pivot Table'!" +
-                  theme_start_letter + "2:2", "USER_ENTERED", theme_columns)
-    update_values(SPREADSHEETID, "'Pivot Table'!C3:"+theme_end_letter +
-                  str(len(base_values)+1), "USER_ENTERED", boolean)
+    update_values(SPREADSHEETID, "'Pivot Table'!A2:B", "USER_ENTERED", base_values)
+    update_values(SPREADSHEETID, "'Pivot Table'!C1", "USER_ENTERED", [['Country']])
+    update_values(SPREADSHEETID, "'Pivot Table'!C2:" + country_end_letter + "2", "USER_ENTERED", country_columns)
+    update_values(SPREADSHEETID, "'Pivot Table'!" + theme_start_letter + "1", "USER_ENTERED", [['Theme']])
+    update_values(SPREADSHEETID, "'Pivot Table'!" + theme_start_letter + "2:2", "USER_ENTERED", theme_columns)
+    update_values(SPREADSHEETID, "'Pivot Table'!C3:"+theme_end_letter + str(len(base_values)+1), "USER_ENTERED", boolean)
 
     pivot_table(SPREADSHEETID, PIVOT, 0, 1, 2, len(country_values)+2)
-    pivot_table(SPREADSHEETID, PIVOT, 0, 1, len(country_values) +
-                2, len(theme_values) + len(country_values)+2)
+    pivot_table(SPREADSHEETID, PIVOT, 0, 1, len(country_values) + 2, len(theme_values) + len(country_values)+2)
 
     countries_values(SPREADSHEETID, all_values, base_values, country_values)
-    themes_values(SPREADSHEETID, all_values, base_values,
-                  theme_values, country_values)
+    themes_values(SPREADSHEETID, all_values, base_values, theme_values, country_values)
