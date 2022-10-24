@@ -134,7 +134,7 @@ def themes_values(sheet_id, all_data, base_columns, themes_list, country_list):
                         update_values(sheet_id, "'Pivot Table'!" + index, "USER_ENTERED", [['True']])
 
 
-def pivot_table(spreadsheet_id, sheetId, start_row, end_row, start_col, end_col):
+def pivot_table(spreadsheet_id, sheetId, startRowIndex, endRowIndex, startColumnIndex, endColumnIndex):
     creds = Credentials.from_authorized_user_file('token.json', SCOPES)
 
     try:
@@ -144,10 +144,10 @@ def pivot_table(spreadsheet_id, sheetId, start_row, end_row, start_col, end_col)
             "mergeCells": {
                 "range": {
                     "sheetId": sheetId,
-                    "startRowIndex": start_row,
-                    "endRowIndex": end_row,
-                    "startColumnIndex": start_col,
-                    "endColumnIndex": end_col
+                    "startRowIndex": startRowIndex,
+                    "endRowIndex": endRowIndex,
+                    "startColumnIndex": startColumnIndex,
+                    "endColumnIndex": endColumnIndex
                 },
                 "mergeType": "MERGE_ALL"
             }
