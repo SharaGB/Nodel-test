@@ -1,4 +1,5 @@
 # Nodel Test
+![nodel](https://user-images.githubusercontent.com/90220978/197424636-63b5e6e3-eb92-415c-8259-fb0aac10cccd.png)
 
 This repository contains 3 challenges for the Nodel test
 
@@ -21,6 +22,8 @@ A new tab will open where Google will ask you to log in and verify yourself. Onc
 If you want to change something, add or delete data, you must delete the ***Pivot Table*** that is created in the Google sheet.
 
 <code>Challenge 2:</code> Monty Hall's problem
+
+![WhatsApp Image 2022-10-23 at 7 02 45 PM](https://user-images.githubusercontent.com/90220978/197424872-44def626-5a54-45cf-affa-d8f0793d5243.jpeg)
 
 <p style="background: #e5d3f2; color: #030303; font-weight: lighter; font-style: italic; padding: 10px; border: 2px solid #e6c5fc; border-radius: 8px;">In this contest, the contestant chooses one door among three, and his prize consists of what lies behind it.
 consists of what lies behind it. One of them hides a car, and behind the other two is a goat.
@@ -61,6 +64,7 @@ ________________________________________________________________________________
     Chances of winning if you stay with your choice 24.94%
     Chances of winning if Monty Hall open the door with the car 25.00%
 ```
+![monty_hall (1)](https://user-images.githubusercontent.com/90220978/197424644-93f5f2d2-7339-4db0-a772-69d297217a63.jpg)
 
 <code>Challenge 2:</code>: Mouse Exercises with Selenium.
 
